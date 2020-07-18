@@ -39,4 +39,6 @@ app.use(function(req, res, next) {
     return next();
 });
 
-app.listen(port, (err) => console.log(err || 'server open at port ' + port))
+app.listen(process.env.PORT || port, '0.0.0.0', () => {
+    console.log('listening on *:3000');
+});
