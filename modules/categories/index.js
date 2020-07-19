@@ -36,8 +36,8 @@ const handler = {
         try {
             let { search = '' } = req.query
             console.log(search)
-            var phrase = new RegExp(search, 'i')
-            let items = await model.find({ $text: { $search: phrase } })
+
+            let items = await model.find({ $text: { $search: search } })
             res.json(items[0]._id)
         } catch (error) {
             next(error)
