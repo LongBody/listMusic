@@ -37,7 +37,8 @@ const handler = {
             let { search = '' } = req.query
             console.log(search)
 
-            let items = await model.find({ $text: { $search: search } })
+            let items = await model.find({ title: search })
+            console.log(items)
             res.json(items[0]._id)
         } catch (error) {
             next(error)
