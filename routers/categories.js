@@ -5,7 +5,7 @@ const router = new express.Router()
 
 router.get('/', categoryHandlers.findMany)
 
-router.get('/find', categoryHandlers.searchCategories)
+// router.get('/find', categoryHandlers.searchCategories)
 
 router.get('/:id', categoryHandlers.findOne)
 
