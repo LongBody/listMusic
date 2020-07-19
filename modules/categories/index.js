@@ -32,6 +32,19 @@ const handler = {
 
     },
 
+    async searchCategories(req, res, next) {
+        try {
+            let { search = '' } = req.query
+            console.log(search)
+            var phrase = "\"" + search + "\""
+            let items = await model.find({ $text: { $search: phrase } })
+            res.json(items[0]._id)
+        } catch (error) {
+            next(error)
+        }
+
+    },
+
     async findOne(req, res, next) {
         try {
             let id = req.params.id

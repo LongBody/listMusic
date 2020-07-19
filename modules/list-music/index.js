@@ -18,17 +18,18 @@ const handler = {
             console.log(fieldsArr)
             let condition = {}
             if (search) {
-                condition.title = new RegExp(search, 'i')
-
-
+                condition.categories = new RegExp(search, 'i')
             }
 
             console.log(condition)
                 // let items = await productModel.find({ }, fieldsArr).skip(skip).limit(limit).sort(sortInfo)
-            let items = await productModel.find(condition, fieldsArr).skip(skip).limit(limit).sort(sortInfo)
+            let items = await productModel.find({
+                categories: search
+            })
 
             // let items = await productModel.find({})
             res.json(items)
+
         } catch (error) {
             next(error)
         }
@@ -46,8 +47,8 @@ const handler = {
             // search = new RegExp(search, 'i')
             var phrase = "\"" + search + "\""
             let items = await productModel.find({ $text: { $search: phrase } })
-            res.json(items)
-            res.json(itemss)
+            res.json(items[0]._id)
+
         } catch (error) {
             next(error)
         }
