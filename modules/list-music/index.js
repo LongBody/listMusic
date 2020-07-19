@@ -8,28 +8,33 @@ const handler = {
             let { pageIndex, pageSize, sortBy, sort, search = '', field = '' } = req.query
             console.log(search)
 
-            pageSize = parseInt(pageSize) || 20
-            pageIndex = parseInt(pageIndex) || 1
+            pageSize = parseInt(pageSize)
+            pageIndex = parseInt(pageIndex)
 
             let limit = pageSize
             let skip = (pageIndex - 1) * pageSize
             let sortInfo = `${sort == 'desc' ? '-' : ''}${sortBy}`
-            let fieldsArr = field.split(',').map(field => field.trim())
-            console.log(fieldsArr)
-            let condition = {}
-            if (search) {
-                condition.categories = new RegExp(search, 'i')
+                // let fieldsArr = field.split(',').map(field => field.trim())
+
+            if (pageIndex && search) {
+                let items = await productModel.find({ categories: search }).skip(skip).limit(limit)
+                res.json(items)
+            } else if (search) {
+                let items = await productModel.find({
+                    categories: search
+                })
+                res.json(items)
+
+            } else if (pageIndex) {
+                let items = await productModel.find({}).skip(skip).limit(limit).sort(sortInfo)
+                res.json(items)
+            } else {
+                let items = await productModel.find({})
+                res.json(items)
             }
 
-            console.log(condition)
-                // let items = await productModel.find({ }, fieldsArr).skip(skip).limit(limit).sort(sortInfo)
-            let items = await productModel.find({
-                categories: search
-            })
-
+            // let items = await productModel.find(condition,fieldsArr).skip(skip).limit(limit).sort(sortInfo)
             // let items = await productModel.find({})
-            res.json(items)
-
         } catch (error) {
             next(error)
         }
