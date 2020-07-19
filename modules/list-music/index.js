@@ -50,8 +50,8 @@ const handler = {
 
             // }
             // search = new RegExp(search, 'i')
-            let phrase = new RegExp(search, 'i')
-            console.log(phrase)
+            var phrase = "\"" + search + "\""
+
             let items = await productModel.find({ $text: { $search: phrase } })
             res.json(items)
 
