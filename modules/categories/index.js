@@ -35,10 +35,8 @@ const handler = {
     async searchCategories(req, res, next) {
         try {
             let { search = '' } = req.query
-            console.log(search)
 
             let items = await model.find({ title: search })
-            console.log(items)
             res.json(items[0]._id)
         } catch (error) {
             next(error)
