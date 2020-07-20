@@ -7,7 +7,7 @@ var cors = require('cors');
 
 
 const app = express()
-const port = 8000
+const port = 8888
 app.use(cors());
 // const router = require('./routers')
 
@@ -41,6 +41,6 @@ app.use(function(req, res, next) {
     return next();
 });
 
-app.listen(process.env.PORT || 7000, '0.0.0.0', () => {
-    console.log('listening on *:3000');
+app.listen(process.env.PORT || port, '0.0.0.0', () => {
+    console.log('listening on *:7000');
 });
