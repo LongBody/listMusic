@@ -14,6 +14,8 @@ const handler = {
             let limit = pageSize
             let skip = (pageIndex - 1) * pageSize
             let sortInfo = `${sort == 'desc' ? '-' : ''}${sortBy}`
+
+            console.log(sortInfo)
                 // let fieldsArr = field.split(',').map(field => field.trim())
 
             if (pageIndex && search) {
@@ -29,11 +31,11 @@ const handler = {
                 let items = await productModel.find({}).skip(skip).limit(limit).sort(sortInfo)
                 res.json(items)
             } else {
-                let items = await productModel.find({})
+                let items = await productModel.find({}).sort(sortInfo)
                 res.json(items)
             }
 
-            // let items = await productModel.find(condition,fieldsArr).skip(skip).limit(limit).sort(sortInfo)
+            // let items = await productModel.find(condition,fieldsArr).skip(skip).limit(limit)
             // let items = await productModel.find({})
         } catch (error) {
             next(error)
