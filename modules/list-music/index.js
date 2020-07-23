@@ -52,7 +52,11 @@ const handler = {
 
             // }
             // search = new RegExp(search, 'i')
-            var phrase = "\"" + search + "\""
+
+            let searchWord = search.replace(/d|D/g, "đ");
+            var phrase = "\"" + searchWord + "\""
+
+            console.log(phrase)
 
             let items = await productModel.find({ $text: { $search: phrase } })
             res.json(items)
