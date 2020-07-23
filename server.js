@@ -7,6 +7,9 @@ var cors = require('cors');
 
 
 const app = express()
+
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 const port = 8888
 app.use(cors());
 // const router = require('./routers')
@@ -40,7 +43,29 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     return next();
 });
+let user = 0;
+io.on('connection', (socket) => {
 
-app.listen(process.env.PORT || port, '0.0.0.0', () => {
-    console.log('listening on *:7000');
+    console.log('a user connected');
+    user++;
+    socket.on("user-online", function() {
+        io.sockets.emit('server-user-online', user)
+    })
+    socket.on('disconnect', () => {
+
+        console.log('user disconnected ');
+        user--;
+        io.sockets.emit('server-user-online', user)
+    });
+
+    console.log(user)
+
+});
+
+// http.listen(process.env.PORT || port, '0.0.0.0', () => {
+//     console.log('listening on *:' + port);
+// });
+
+http.listen(3000, () => {
+    console.log('listening on *:3000');
 });

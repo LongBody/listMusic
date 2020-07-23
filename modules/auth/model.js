@@ -6,7 +6,6 @@ const MODEL_NAME = 'user-profiles'
 
 const userProfileModel = mongoose.model(MODEL_NAME, userProfileSchema, COLLECTION_NAME)
 
-console.log(userProfileModel)
 
 // modelProduct.countDocuments()
 // modelProduct.find()
