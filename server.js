@@ -48,14 +48,14 @@ io.on('connection', (socket) => {
 
     console.log('a user connected');
     user++;
+    console.log(user)
     socket.on("user-online", function() {
         io.sockets.emit('server-user-online', user)
     })
     socket.on('disconnect', () => {
-
         console.log('user disconnected ');
         user--;
-        io.sockets.emit('server-user-online', user)
+        io.sockets.emit('server-user-offline', user)
     });
 
     console.log(user)
