@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const DB_NAME = 'listMusic'
-const connectionString = 'mongodb+srv://longbody:123@cluster0-gfzv6.gcp.mongodb.net/listMusic?retryWrites=true&w=majority'
+require('dotenv').config()
+const connectionString = process.env.MONGO_KEY
 mongoose.set('useCreateIndex', true)
 mongoose.connect(
     connectionString, {

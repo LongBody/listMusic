@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const router = require('./routers')
 var cors = require('cors');
 
-
+require('dotenv').config()
 
 const app = express()
 
